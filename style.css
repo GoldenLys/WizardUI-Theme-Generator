@@ -1,0 +1,94 @@
+body {
+    font-family: sans-serif;
+}
+
+body > .ui.container {
+    padding: 2rem 0;
+}
+
+.config-section {
+    margin-bottom: 20px;
+}
+
+.addon-toggle {
+    margin-right: 10px;
+}
+
+.color-picker {
+    width: 50px;
+    height: 25px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.ui.form input:not([type]),
+.ui.form input[type=color],
+.ui.form input[type=date],
+.ui.form input[type=datetime-local],
+.ui.form input[type=email],
+.ui.form input[type=file],
+.ui.form input[type=month],
+.ui.form input[type=number],
+.ui.form input[type=password],
+.ui.form input[type=search],
+.ui.form input[type=tel],
+.ui.form input[type=text],
+.ui.form input[type=time],
+.ui.form input[type=url],
+.ui.form input[type=week],
+h1,
+h2,
+h3,
+h4,
+h5,
+.ui.menu,
+.ui.button {
+    font-family: inherit;
+}
+
+.range-value {
+    position: relative;
+}
+
+.range-value:after {
+    content: attr(value);
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: center / cover no-repeat;
+}
+
+.ui.inverted.segment>.ui.header .sub.header.grey {
+    color: #767676;
+}
+
+.ui.header>.image:not(.icon), .ui.header>img {
+    width: 2.5em;
+    height: 2.5em;
+    vertical-align: middle;
+    object-fit: cover;
+    object-position: center;
+}
+
+.ui.fluid.attached.button {
+    display: flex;
+    width: calc(100% + 2px);
+    max-width: calc(100% + 2px);
+    margin-left: -1px;
+    margin-right: -1px;
+    justify-content: center;
+}
+
+.ui.header {
+    font: inherit;
+}

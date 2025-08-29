@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>WizardUI Theme Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.3/semantic.min.css" integrity="sha512-3quBdRGJyLy79hzhDDcBzANW+mVqPctrGCfIPosHQtMKb3rKsCxfyslzwlz2wj1dT8A7UX+sEvDjaUv+WExQrA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="ui container">
+        <div class="ui inverted segment">
+            <h2 class="ui image inverted grey header">
+                <img id="logo" class="ui rounded right spaced image">
+                <span id="app-title" class="content">WizardUI Theme Generator</span>
+            </h2>
+
+            <div class="ui top attached inverted tabular menu">
+                <a class="item active" data-tab="one">General</a>
+                <a class="item" data-tab="two">Addons</a>
+                <a class="item" data-tab="three">Colors</a>
+                <a class="item" data-tab="four">Status Colors</a>
+                <a class="item" data-tab="five">UI Colors</a>
+                <a class="item" data-tab="six">Backgrounds</a>
+                <a class="item" data-tab="seven">RGB</a>
+                <a class="item" data-tab="eight">Miscs</a>
+            </div>
+            <!-- GENERAL TAB -->
+            <div class="ui bottom attached inverted tab segment" data-tab="one">
+                <div class="ui inverted form">
+                    <div class="field">
+                        <label for="themeName">Theme Name:</label>
+                        <input type="text" id="themeName" value="WizardUI Custom">
+                    </div>
+                    <div class="field">
+                        <label for="watermark">Watermark (you can leave that empty if you wish):</label>
+                        <input type="text" id="watermark" value="WizardUI Custom Edition">
+                    </div>
+                    <div class="field">
+                        <label for="fontVariable">Font:</label>
+                        <select id="fontVariable"></select>
+                    </div>
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Background</h4>
+                        <div id="backgroundType" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="color">Color</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <!-- Background Preset Image -->
+                            <select id="backgroundImage"></select>
+
+                            <!-- Background Color -->
+                            <input type="color" id="backgroundColor" value="#565656">
+
+                            <!-- Background Custom -->
+                            <div id="backgroundCustom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="backgroundCustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Logo</h4>
+                        <div id="logoType" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <!-- Logo Preset Image -->
+                            <select id="LogoImage"></select>
+
+                            <!-- Logo Custom -->
+                            <div id="LogoCustom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="LogoCustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Message Box Line Limit</label>
+                        <div class="ui inverted labeled ticked slider" id="message-lines-slider"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADDONS TAB -->
+            <div class="ui bottom attached inverted tab segment active" data-tab="two">
+                <div class="ui inverted form">
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="addon-PurpleServerList" checked="checked">
+                                <label>Purple Server List</label>
+                            </div>
+                        </div>
+                        <div class="eleven wide field">
+                            <div id="desc-PurpleServerList" class="ui horizontal grey inverted basic label"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="addon-LettersInPSL">
+                                <label>Letters In PSL </label>
+                            </div>
+                        </div>
+                        <div class="eleven wide field">
+                            <div id="desc-LettersInPSL" class="ui horizontal grey inverted basic label"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="addon-AlternateFoldersInPSL">
+                                <label>Alternate Folders In PSL</label>
+                            </div>
+                        </div>
+                        <div class="eleven wide field">
+                            <div id="desc-AlternateFoldersInPSL" class="ui horizontal grey inverted basic label"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="addon-HoverMembers">
+                                <label>Hover Members</label>
+                            </div>
+                        </div>
+                        <div class="eleven wide field">
+                            <div id="desc-HoverMembers" class="ui horizontal grey inverted basic label"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="addon-UserIsTyping">
+                                <label>User Is Typing</label>
+                            </div>
+                        </div>
+                        <div class="eleven wide field">
+                            <div id="desc-UserIsTyping" class="ui horizontal grey inverted basic label"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="addon-UniqueChatbar">
+                                <label>Unique Chatbar</label>
+                            </div>
+                        </div>
+                        <div class="eleven wide field">
+                            <div id="desc-UniqueChatbar" class="ui horizontal grey inverted basic label"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <label for="addon-EvenMoreColors">Even More Colors</label>
+                            <select id="addon-EvenMoreColors">
+                                <option value="0">0 - Disabled</option>
+                                <option value="1">1 - More colorful but no RGB</option>
+                                <option value="2">2 - RGB Enabled</option>
+                                <option value="3">3 - RGB Enabled</option>
+                                <option value="4">4 - RGB Enabled</option>
+                                <option value="5">5 - RGB Enabled</option>
+                                <option value="6">6 - RGB Enabled</option>
+                                <option value="7">7 - RGB Enabled</option>
+                                <option value="8">8 - RGB Enabled</option>
+                                <option value="9">9 - RGB Enabled</option>
+                                <option value="10">10 - RGB Enabled</option>
+                            </select>
+                        </div>
+                        <div class="eleven wide field">
+                            <div class="ui horizontal grey inverted basic label">This is an addon that recolors alot of elements in the app with the main theme color but you can
+                                even add an RGB animated effect if you change the number before the ".css" (with a maximum of 10 colors).</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLORS TAB  -->
+            <div class="ui bottom attached inverted tab segment active" data-tab="three">
+                <div class="ui inverted form">
+                    <div class="field">
+                        <label for="primaryColor">Primary Color:</label>
+                        <input type="color" id="primaryColor" value="#9d5cb5">
+                    </div>
+                    <div class="field">
+                        <label for="textColor">Text Color:</label>
+                        <input type="color" id="textColor" value="#ffffff">
+                    </div>
+                    <div class="field">
+                        <label for="shadowColor">Text Shadow Color (improves readability in dark themes):</label>
+                        <input type="color" id="shadowColor" value="#000000">
+                    </div>
+
+                    <h4 class="ui inverted dividing header">Hoverred Message Color:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="messageHoverColor" value="#000000">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="messagehover-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="messagehover-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <div class="field">
+                        <label for="unreadColor">Unread Color:</label>
+                        <input type="color" id="unreadColor" value="#ad1010">
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATUS COLORS TAB -->
+            <div class="ui bottom attached inverted tab segment" data-tab="four">
+                <div class="ui inverted form">
+                    <div class="field">
+                        <label for="OnlineColor">Online Color:</label>
+                        <input type="color" id="OnlineColor" value="#00FF06">
+                    </div>
+
+                    <div class="field">
+                        <label for="IdleColor">Idle Color:</label>
+                        <input type="color" id="IdleColor" value="#1264EF">
+                    </div>
+
+                    <div class="field">
+                        <label for="UnavailableColor">Unavailable Color:</label>
+                        <input type="color" id="UnavailableColor" value="#E40F00">
+                    </div>
+
+                    <div class="field">
+                        <label for="OfflineColor">Offline Color:</label>
+                        <input type="color" id="OfflineColor" value="#5A5F64">
+                    </div>
+
+                    <div class="field">
+                        <label for="StreamingColor">Streaming Color:</label>
+                        <input type="color" id="StreamingColor" value="#6E00C4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- UI COLORS TAB -->
+            <div class="ui bottom attached inverted tab segment" data-tab="five">
+                <div class="ui inverted form">
+                    <h4 class="ui inverted dividing header">Main UI color</h4>
+
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="greyColor" value="#12131F">
+                        </div>
+
+                        <div class="fifteen wide field">
+                            <label for="grey5Color">opacity for some elements using this color</label>
+                            <div class="ui inverted labeled ticked slider" id="transparent-color-slider1"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">Secondary (darker) UI color</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="darkgreyColor" value="#0A0A14">
+                        </div>
+
+                        <div class="fifteen wide field">
+                            <label for="darkgrey5Color">opacity for some elements using this color</label>
+                            <div class="ui inverted labeled ticked slider" id="transparent-color-slider2"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <div class="field">
+                        <label for="successColor">Success Color:</label>
+                        <input type="color" id="successColor" value="#45D022">
+                    </div>
+                    <div class="field">
+                        <label for="warningColor">Warning Color:</label>
+                        <input type="color" id="warningColor" value="#EEA51E">
+                    </div>
+                    <div class="field">
+                        <label for="errorColor">Error Color:</label>
+                        <input type="color" id="errorColor" value="#D02222">
+                    </div>
+
+                    <h4 class="ui inverted dividing header">Hoverred Element Color:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="HoverColor" value="#12131f">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="hover-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="hover-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+                </div>
+            </div>
+
+            <!-- BACKGROUNDS TAB -->
+            <div class="ui bottom attached inverted tab segment" data-tab="six">
+                <div class="ui inverted form">
+                    <h4 class="ui inverted dividing header">Title Bar:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-titlebar" value="#000000">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-titlebar-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-titlebar-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">Servers List:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-servers" value="#000000">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-servers-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-servers-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">UI Background:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-ui" value="#000000">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-ui-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-ui-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">Chat Box:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-chatbox" value="#000000">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-chatbox-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-chatbox-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">Send Message Box:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-sendmessage" value="#000000">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-sendmessage-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-sendmessage-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">Members List:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-members" value="#000000">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-members-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-members-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">Chat Elements:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-chat-elements" value="#12131F">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-chat-elements-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-chat-elements-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">User Area:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-user-area" value="#000000">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-user-area-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-user-area-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">App Settings:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-settings" value="#0A0A14">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-settings-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-settings-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">Profile Shader:</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-colorprofile" value="#000000">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-colorprofile-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-colorprofile-slider"></div>
+                        </div>
+                    </div>
+                    <div class="ui inverted divider"></div>
+
+                    <h4 class="ui inverted dividing header">Alt Message Background (different color for each message):</h4>
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <input type="color" id="bg-alt-message" value="#000000">
+                        </div>
+                        <div class="fifteen wide field">
+                            <label for="bg-alt-message-slider">opacity:</label>
+                            <div class="ui inverted labeled ticked slider" id="bg-alt-message-slider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RGB TAB -->
+            <div class="ui bottom attached inverted tab segment active" data-tab="seven">
+                <div class="ui inverted form">
+                    <div class="field">
+                        <label>RGB Animation Speed (in seconds)</label>
+                        <div class="ui inverted slider" id="rgb-speed-slider"></div>
+                    </div>
+
+                    <div class="field">
+                        <label>RGB Color 2:</label>
+                        <input type="color" id="rgb-color-2" value="#000000">
+                    </div>
+                    <div class="field">
+                        <label>RGB Color 3:</label>
+                        <input type="color" id="rgb-color-3" value="#000000">
+                    </div>
+                    <div class="field">
+                        <label>RGB Color 4:</label>
+                        <input type="color" id="rgb-color-4" value="#000000">
+                    </div>
+                    <div class="field">
+                        <label>RGB Color 5:</label>
+                        <input type="color" id="rgb-color-5" value="#000000">
+                    </div>
+                    <div class="field">
+                        <label>RGB Color 6:</label>
+                        <input type="color" id="rgb-color-6" value="#000000">
+                    </div>
+                    <div class="field">
+                        <label>RGB Color 7:</label>
+                        <input type="color" id="rgb-color-7" value="#000000">
+                    </div>
+                    <div class="field">
+                        <label>RGB Color 8:</label>
+                        <input type="color" id="rgb-color-8" value="#000000">
+                    </div>
+                    <div class="field">
+                        <label>RGB Color 9:</label>
+                        <input type="color" id="rgb-color-9" value="#000000">
+                    </div>
+                    <div class="field">
+                        <label>RGB Color 10:</label>
+                        <input type="color" id="rgb-color-10" value="#000000">
+                    </div>
+                </div>
+            </div>
+
+            <!-- MISC TAB -->
+            <div class="ui bottom attached inverted tab segment" data-tab="eight">
+                <div class="ui inverted form">
+                    <div class="field">
+                        <label>Servers Icon Size (in pixel)</label>
+                        <div class="ui inverted slider" id="server-size-slider"></div>
+                    </div>
+
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Server Pill Color (notification)</h4>
+                        <div id="pillColorType" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="default">Primary Theme Color</div>
+                            <div class="ui grey button" data-value="custom">Custom Color</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <!-- Theme color -->
+                            <div id="Pill-Default-Color" class="ui inverted transparent input">
+                                <input type="text" placeholder="theme color (default)" disabled="">
+                            </div>
+
+                            <!-- Custom Custom -->
+                            <input id="Pill-Custom-Color" type="color" value="#9d5cb5">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Default Server Folders Color</h4>
+                        <div id="serversColorType" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="default">Primary Theme Color</div>
+                            <div class="ui grey button" data-value="custom">Custom Color</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <!-- Theme color -->
+                            <div id="Servers-Default-Color" class="ui inverted transparent input">
+                                <input type="text" placeholder="theme color (default)" disabled="">
+                            </div>
+
+                            <!-- Custom Custom -->
+                            <input id="Servers-Custom-Color" type="color" value="#9d5cb5">
+                        </div>
+                    </div>
+
+                    <div id="Rounding" class="inline fields">
+                        <label for="Rounding">Rounding of elements:</label>
+                        <div class="field">
+                            <div class="ui radio checkbox checked">
+                                <input type="radio" name="Rounding" value="square" tabindex="0" class="hidden">
+                                <label>Square</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="Rounding" checked="" value="rounded" class="hidden">
+                                <label>Rounded</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="Rounding" value="circle" tabindex="0" class="hidden">
+                                <label>Circle</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="AvatarRounding" class="inline fields">
+                        <label for="AvatarRounding">Rounding of avatars</label>
+                        <div class="field">
+                            <div class="ui radio checkbox checked">
+                                <input type="radio" name="AvatarRounding" value="square" tabindex="0" class="hidden">
+                                <label>Square</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="AvatarRounding" checked="" value="rounded" class="hidden">
+                                <label>Rounded</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="AvatarRounding" value="circle" tabindex="0" class="hidden">
+                                <label>Circle</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="showGiftButton">Show Gift Button:</label>
+                        <select id="showGiftButton">
+                            <option value="none">❌ Disabled</option>
+                            <option value="flex">✅ Enabled</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="showGIFButton">Show GIF Button:</label>
+                        <select id="showGIFButton">
+                            <option value="none">❌ Disabled</option>
+                            <option value="flex">✅ Enabled</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="showStickerButton">Show Sticker Button:</label>
+                        <select id="showStickerButton">
+                            <option value="none">❌ Disabled</option>
+                            <option value="flex">✅ Enabled</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="showAppsButton">Show Apps Button:</label>
+                        <select id="showAppsButton">
+                            <option value="flex">✅ Enabled</option>
+                            <option value="none">❌ Disabled</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui inverted segment">
+            <div class="ui fluid top attached buttons">
+                <button id="generate" class="ui green button">Generate Config</button>
+                <input id="themeImporter" type="file" class="ui invisible file input">
+                <label for="themeImporter" class="ui grey icon button">
+                    <i class="file icon"></i>
+                    Import Theme
+                </label>
+            </div>
+
+            <div id="output" class="ui inverted attached segment">
+                Click on the button above to generate the config.
+            </div>
+
+            <button id="download" class="ui disabled bottom attached fluid green button">Download Theme</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.3/semantic.min.js" integrity="sha512-gnoBksrDbaMnlE0rhhkcx3iwzvgBGz6mOEj4/Y5ZY09n55dYddx6+WYc72A55qEesV8VX2iMomteIwobeGK1BQ==" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <script src="./app.js"></script>
+</body>
+
+</html>
