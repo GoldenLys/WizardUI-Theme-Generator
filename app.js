@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.5',
+    VERSION: '1.6',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -308,7 +308,16 @@ var CONFIG = {
     background_type: 'image',
     logo_type: 'image',
     pill_color_type: 'default',
-    folders_color_type: 'default'
+    folders_color_type: 'default',
+    EMB_2_type: 'image',
+    EMB_3_type: 'image',
+    EMB_4_type: 'image',
+    EMB_5_type: 'image',
+    EMB_6_type: 'image',
+    EMB_7_type: 'image',
+    EMB_8_type: 'image',
+    EMB_9_type: 'image',
+    EMB_10_type: 'image',
 };
 
 function updateFont(font) {
@@ -329,6 +338,20 @@ function updateBackgroundType(type) {
             $(`#${TYPES[type]}`).show();
         } else {
             $(`#backgroundType .ui.button[data-value="${type}"]`).attr("class", "ui grey button");
+            $(`#${TYPES[type]}`).hide();
+        }
+    }
+}
+
+function updateEMBType(id, type) {
+    CONFIG[`EMB_${id}_type`] = type;
+    let TYPES = { image: `EMB_${id}_Image`, color: `EMB_${id}_Color`, custom: `EMB_${id}_Custom` };
+    for (const type in TYPES) {
+        if (type === CONFIG[`EMB_${id}_type`]) {
+            $(`#EMB_${id}_Type .ui.button[data-value="${type}"]`).attr("class", "ui green button");
+            $(`#${TYPES[type]}`).show();
+        } else {
+            $(`#EMB_${id}_Type .ui.button[data-value="${type}"]`).attr("class", "ui grey button");
             $(`#${TYPES[type]}`).hide();
         }
     }
@@ -439,7 +462,7 @@ function importTheme() {
             const cssContent = reader.result;
             const { themeInfo, themeVariables, themeAddons } = extractThemeData(cssContent);
             const processedTheme = processTheme(themeVariables);
-            //console.log(themeAddons);
+            console.log(themeAddons);
             //console.log(processedTheme);
             applyTheme(themeInfo, processedTheme, themeAddons);
         };
@@ -470,6 +493,17 @@ function extractThemeData(cssContent) {
             if (evenMoreColorsMatch) {
                 const amount = parseInt(evenMoreColorsMatch[1], 10);
                 themeAddons['EvenMoreColors'] = amount;
+            }
+            const evenMoreBackgroundsMatch = url.match(/EvenMoreBackgrounds\/(\d+)\.css$/);
+            if (evenMoreBackgroundsMatch) {
+                const amount = parseInt(evenMoreBackgroundsMatch[1], 10);
+                if (!isNaN(amount)) {
+                    themeAddons['EvenMoreBackgrounds'] = amount;
+                } else {
+                    console.error('Invalid amount for EvenMoreBackgrounds addon:', amount);
+                }
+            } else {
+                console.error('No match for EvenMoreBackgrounds addon:', url);
             }
         }
     });
@@ -534,6 +568,13 @@ function processTheme(themeVariables) {
         }
     });
     return processedTheme;
+}
+
+
+function INIT_BACKGROUND_SELECTOR(element_id) {
+    for (const background in GLOBALS.backgrounds) {
+        $('#' + element_id ).append(`<option value="${background}">${GLOBALS.backgrounds[background].name}</option>`);
+    }
 }
 
 function convertRgbToHex(rgb) {
@@ -602,6 +643,17 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
         '--Color9': '#rgb-color-9',
         '--Color10': '#rgb-color-10',
 
+        '--BackgroundTime': '#emb-speed-slider',
+        '--EMB_1': '#EMB_2_CustomUrl', 
+        '--EMB_2': '#EMB_3_CustomUrl',
+        '--EMB_3': '#EMB_4_CustomUrl',
+        '--EMB_4': '#EMB_5_CustomUrl',
+        '--EMB_5': '#EMB_6_CustomUrl',
+        '--EMB_6': '#EMB_7_CustomUrl',
+        '--EMB_7': '#EMB_8_CustomUrl',
+        '--EMB_8': '#EMB_9_CustomUrl',
+        '--EMB_9': '#EMB_10_CustomUrl',
+
         // Server
         '--ServerSize': '#server-size-slider',
     };
@@ -639,6 +691,10 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
         }
         else if (key == '--ServerSize') {
             $(elementMap[key]).slider('set value', value.replace(/[px]/g, ''));
+        } else if (key == '--EMB_1' || key == '--EMB_2' || key == '--EMB_3' || key == '--EMB_4' || key == '--EMB_5' || key == '--EMB_6' || key == '--EMB_7' || key == '--EMB_8' || key == '--EMB_9') {
+            const embId = parseInt(key.split('_')[1]) + 1;
+            updateEMBType(embId, 'custom');
+            $(`#EMB_${embId}_CustomUrl`).val(value);
         } else {
             if (Array.isArray(elementMap[key])) {
                 $(elementMap[key][0]).val(value[0]);
@@ -661,6 +717,10 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
         $('#addon-EvenMoreColors').val(themeAddons['EvenMoreColors']);
     }
 
+    if (themeAddons['EvenMoreBackgrounds']) {
+        $('#addon-EvenMoreBackgrounds').val(themeAddons['EvenMoreBackgrounds']);
+    }
+
     updateLogo(themeVariables['--logo']);
     updateBackground(themeVariables['--background']);
 }
@@ -674,6 +734,7 @@ $(document).ready(function () {
     Initialize_Slider('transparent-color-slider2', 0, 1.0, 0.75, 0.05, false, true);
     Initialize_Slider('message-lines-slider', 1, 30, 8, 1, false, false);
     Initialize_Slider('rgb-speed-slider', 1, 180, 5, 1, true, false);
+    Initialize_Slider('emb-speed-slider', 0, 3600, 60, 5, true, false);
     Initialize_Slider('messagehover-slider', 0, 1.0, 0.0, 0.05, false, true);
     Initialize_Slider('hover-slider', 0, 1.0, 0.5, 0.05, false, true);
     Initialize_Slider('bg-titlebar-slider', 0, 1.0, 0.65, 0.05, false, true);
@@ -705,14 +766,66 @@ $(document).ready(function () {
     }
 
     // BACKGROUND
-    for (const background in GLOBALS.backgrounds) {
-        $('#backgroundImage').append(`<option value="${background}">${GLOBALS.backgrounds[background].name}</option>`);
-    }
+    INIT_BACKGROUND_SELECTOR('backgroundImage');
+    INIT_BACKGROUND_SELECTOR('EMB_2_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_3_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_4_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_5_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_6_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_7_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_8_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_9_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_10_Image');
 
     $('#backgroundType').on('click', ".ui.button", function () {
         updateBackgroundType($(this).data('value'));
     });
     updateBackgroundType(CONFIG.background_type);
+
+    $('#EMB_2_Type').on('click', ".ui.button", function () {
+        updateEMBType(2, $(this).data('value'));
+    });
+    updateEMBType(2, CONFIG[`EMB_2_type`]);
+
+    $('#EMB_3_Type').on('click', ".ui.button", function () {
+        updateEMBType(3, $(this).data('value'));
+    });
+    updateEMBType(3, CONFIG[`EMB_3_type`]);
+
+    $('#EMB_4_Type').on('click', ".ui.button", function () {
+        updateEMBType(4, $(this).data('value'));
+    });
+    updateEMBType(4, CONFIG[`EMB_4_type`]);
+
+    $('#EMB_5_Type').on('click', ".ui.button", function () {
+        updateEMBType(5, $(this).data('value'));
+    });
+    updateEMBType(5, CONFIG[`EMB_5_type`]);
+
+    $('#EMB_6_Type').on('click', ".ui.button", function () {
+        updateEMBType(6, $(this).data('value'));
+    });
+    updateEMBType(6, CONFIG[`EMB_6_type`]);
+
+    $('#EMB_7_Type').on('click', ".ui.button", function () {
+        updateEMBType(7, $(this).data('value'));
+    });
+    updateEMBType(7, CONFIG[`EMB_7_type`]);
+
+    $('#EMB_8_Type').on('click', ".ui.button", function () {
+        updateEMBType(8, $(this).data('value'));
+    });
+    updateEMBType(8, CONFIG[`EMB_8_type`]);
+
+    $('#EMB_9_Type').on('click', ".ui.button", function () {
+        updateEMBType(9, $(this).data('value'));
+    });
+    updateEMBType(9, CONFIG[`EMB_9_type`]);
+
+    $('#EMB_10_Type').on('click', ".ui.button", function () {
+        updateEMBType(10, $(this).data('value'));
+    });
+    updateEMBType(10, CONFIG[`EMB_10_type`]);
 
     $('#backgroundImage').on('change', function () {
         updateBackground(this.value);
@@ -761,6 +874,7 @@ $(document).ready(function () {
         }
 
         $('#addon-EvenMoreColors').val() > 0 ? config += `@import url("https://goldenlys.github.io/WizardUI/addons/EvenMoreColors/${$('#addon-EvenMoreColors').val()}.css"); \n` : "";
+        $('#addon-EvenMoreBackgrounds').val() > 0 ? config += `@import url("https://goldenlys.github.io/WizardUI/addons/EvenMoreBackgrounds/${$('#addon-EvenMoreBackgrounds').val()}.css"); \n` : "";
 
         config += `\n:root {`
         config += `\n    /* GENERAL */\n`
@@ -833,6 +947,19 @@ $(document).ready(function () {
         config += `    --Color8: ${$('#rgb-color-8').val()};\n`
         config += `    --Color9: ${$('#rgb-color-9').val()};\n`
         config += `    --Color10: ${$('#rgb-color-10').val()};\n`
+
+        config += `\n    /* EMB */\n`
+        config += `    --BackgroundTime: ${$('#emb-speed-slider').slider('get value')}s;\n`
+
+        for (var i = 2; i <= 10; i++) {
+            if (CONFIG[`EMB_${i}_type`] === 'color') {
+                config += `    --EMB_${i-1}: ${$('#EMB_' + i + '_Color').val()};\n`;
+            } else if (CONFIG[`EMB_${i}_type`] === 'custom') {
+                config += `    --EMB_${i-1}: url("${$('#EMB_' + i + '_CustomUrl').val()}");\n`;
+            } else {
+                config += `    --EMB_${i-1}: url("${GLOBALS.backgrounds[$('#EMB_' + i + '_Image').val()].url}");\n`;
+            }
+        }
 
         config += `\n    /* MISCS */\n`
         config += `    --ServerSize: ${$("#server-size-slider").slider("get value")}px;\n`;

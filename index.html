@@ -26,7 +26,8 @@
                 <a class="item" data-tab="five">UI Colors</a>
                 <a class="item" data-tab="six">Backgrounds</a>
                 <a class="item" data-tab="seven">RGB</a>
-                <a class="item" data-tab="eight">Miscs</a>
+                <a class="item" data-tab="eight">EMB</a>
+                <a class="item" data-tab="nine">Miscs</a>
             </div>
             <!-- GENERAL TAB -->
             <div class="ui bottom attached inverted tab segment" data-tab="one">
@@ -190,6 +191,28 @@
                                 <option value="8">8 - RGB Enabled</option>
                                 <option value="9">9 - RGB Enabled</option>
                                 <option value="10">10 - RGB Enabled</option>
+                            </select>
+                        </div>
+                        <div class="eleven wide field">
+                            <div class="ui horizontal grey inverted basic label">This is an addon that recolors alot of elements in the app with the main theme color but you can
+                                even add an RGB animated effect if you change the number before the ".css" (with a maximum of 10 colors).</div>
+                        </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <label for="addon-EvenMoreBackgrounds">Even More Backgrounds</label>
+                            <select id="addon-EvenMoreBackgrounds">
+                                <option value="1">1 - Default Theme Background</option>
+                                <option value="2">2 - Mutliple Backgrounds Enabled</option>
+                                <option value="3">3 - Mutliple Backgrounds Enabled</option>
+                                <option value="4">4 - Mutliple Backgrounds Enabled</option>
+                                <option value="5">5 - Mutliple Backgrounds Enabled</option>
+                                <option value="6">6 - Mutliple Backgrounds Enabled</option>
+                                <option value="7">7 - Mutliple Backgrounds Enabled</option>
+                                <option value="8">8 - Mutliple Backgrounds Enabled</option>
+                                <option value="9">9 - Mutliple Backgrounds Enabled</option>
+                                <option value="10">10 - Mutliple Backgrounds Enabled</option>
                             </select>
                         </div>
                         <div class="eleven wide field">
@@ -505,8 +528,228 @@
                 </div>
             </div>
 
+            <!-- EMB TAB -->
+            <div class="ui bottom attached inverted tab segment active" data-tab="eight">
+                <div class="ui inverted form">
+                    <div class="field">
+                        <label>EMB Animation Speed (in seconds, with 5 seconds increment)</label>
+                        <div class="ui inverted slider" id="emb-speed-slider"></div>
+                    </div>
+
+                    <!-- EMB 2 BACKGROUND -->
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Background 2</h4>
+                        <div id="EMB_2_Type" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="color">Color</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <select id="EMB_2_Image"></select>
+
+                            <input type="color" id="EMB_2_Color" value="#565656">
+
+                            <div id="EMB_2_Custom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="EMB_2_CustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EMB 3 BACKGROUND -->
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Background 3</h4>
+                        <div id="EMB_3_Type" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="color">Color</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <select id="EMB_3_Image"></select>
+
+                            <input type="color" id="EMB_3_Color" value="#565656">
+
+                            <div id="EMB_3_Custom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="EMB_3_CustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EMB 4 BACKGROUND -->
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Background 4</h4>
+                        <div id="EMB_4_Type" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="color">Color</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <select id="EMB_4_Image"></select>
+
+                            <input type="color" id="EMB_4_Color" value="#565656">
+
+                            <div id="EMB_4_Custom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="EMB_4_CustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EMB 5 BACKGROUND -->
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Background 5</h4>
+                        <div id="EMB_5_Type" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="color">Color</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <select id="EMB_5_Image"></select>
+
+                            <input type="color" id="EMB_5_Color" value="#565656">
+
+                            <div id="EMB_5_Custom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="EMB_5_CustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EMB 6 BACKGROUND -->
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Background 6</h4>
+                        <div id="EMB_6_Type" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="color">Color</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <select id="EMB_6_Image"></select>
+
+                            <input type="color" id="EMB_6_Color" value="#565656">
+
+                            <div id="EMB_6_Custom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="EMB_6_CustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EMB 7 BACKGROUND -->
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Background 7</h4>
+                        <div id="EMB_7_Type" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="color">Color</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <select id="EMB_7_Image"></select>
+
+                            <input type="color" id="EMB_7_Color" value="#565656">
+
+                            <div id="EMB_7_Custom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="EMB_7_CustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EMB 8 BACKGROUND -->
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Background 8</h4>
+                        <div id="EMB_8_Type" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="color">Color</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <select id="EMB_8_Image"></select>
+
+                            <input type="color" id="EMB_8_Color" value="#565656">
+
+                            <div id="EMB_8_Custom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="EMB_8_CustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EMB 9 BACKGROUND -->
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Background 9</h4>
+                        <div id="EMB_9_Type" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="color">Color</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <select id="EMB_9_Image"></select>
+
+                            <input type="color" id="EMB_9_Color" value="#565656">
+
+                            <div id="EMB_9_Custom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="EMB_9_CustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EMB 10 BACKGROUND -->
+                    <div class="field">
+                        <h4 class="ui inverted dividing header">Background 10</h4>
+                        <div id="EMB_10_Type" class="ui fluid top attached buttons">
+                            <div class="ui green button" data-value="image">Preset Image</div>
+                            <div class="ui grey button" data-value="color">Color</div>
+                            <div class="ui grey button" data-value="custom">Custom</div>
+                        </div>
+                        <div class="ui inverted attached segment">
+
+                            <select id="EMB_10_Image"></select>
+
+                            <input type="color" id="EMB_10_Color" value="#565656">
+
+                            <div id="EMB_10_Custom" class="ui labeled input">
+                                <div class="ui label">
+                                    <i class="globe icon"></i>
+                                </div>
+                                <input id="EMB_10_CustomUrl" type="text" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
             <!-- MISC TAB -->
-            <div class="ui bottom attached inverted tab segment" data-tab="eight">
+            <div class="ui bottom attached inverted tab segment" data-tab="nine">
                 <div class="ui inverted form">
                     <div class="field">
                         <label>Servers Icon Size (in pixel)</label>
