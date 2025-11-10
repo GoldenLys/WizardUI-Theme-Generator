@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.6',
+    VERSION: '1.7',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -624,6 +624,7 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
         '--bg-titlebar': ['#bg-titlebar', opacity = '#bg-titlebar-slider'],
         '--bg-servers': ['#bg-servers', opacity = '#bg-servers-slider'],
         '--bg-sendmessage': ['#bg-sendmessage', opacity = '#bg-sendmessage-slider'],
+        '--bg-ui-elements': ['#bg-ui-elements', opacity = '#bg-ui-elements-slider'],
         '--bg-members': ['#bg-members', opacity = '#bg-members-slider'],
         '--bg-chat-elements': ['#bg-chat-elements', opacity = '#bg-chat-elements-slider'],
         '--bg-user-area': ['#bg-user-area', opacity = '#bg-user-area-slider'],
@@ -740,6 +741,7 @@ $(document).ready(function () {
     Initialize_Slider('bg-titlebar-slider', 0, 1.0, 0.65, 0.05, false, true);
     Initialize_Slider('bg-servers-slider', 0, 1.0, 0.65, 0.05, false, true);
     Initialize_Slider('bg-ui-slider', 0, 1.0, 0.65, 0.05, false, true);
+    Initialize_Slider('bg-ui-elements-slider', 0, 1.0, 0.65, 0.05, false, true);
     Initialize_Slider('bg-chatbox-slider', 0, 1.0, 0.5, 0.05, false, true);
     Initialize_Slider('bg-sendmessage-slider', 0, 1.0, 0.65, 0.05, false, true);
     Initialize_Slider('bg-members-slider', 0, 1.0, 0.65, 0.05, false, true);
@@ -919,6 +921,7 @@ $(document).ready(function () {
         config += `    --bg-titlebar: ${decimalToHexTransparency($('#bg-titlebar-slider').slider('get value'), $('#bg-titlebar').val())};\n`
         config += `    --bg-servers: ${decimalToHexTransparency($('#bg-servers-slider').slider('get value'), $('#bg-servers').val())};\n`
         config += `    --bg-ui: ${decimalToHexTransparency($('#bg-ui-slider').slider('get value'), $('#bg-ui').val())};\n`
+        config += `    --bg-ui-elements: ${decimalToHexTransparency($('#bg-ui-elements-slider').slider('get value'), $('#bg-ui-elements').val())};\n`
         config += `    --bg-chatbox: ${decimalToHexTransparency($('#bg-chatbox-slider').slider('get value'), $('#bg-chatbox').val())};\n`
         config += `    --bg-sendmessage: ${decimalToHexTransparency($('#bg-sendmessage-slider').slider('get value'), $('#bg-sendmessage').val())};\n`
         config += `    --bg-members: ${decimalToHexTransparency($('#bg-members-slider').slider('get value'), $('#bg-members').val())};\n`
