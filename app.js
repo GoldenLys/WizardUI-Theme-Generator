@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.8',
+    VERSION: '1.81',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -37,13 +37,6 @@ const GLOBALS = {
             id: 'UserIsTyping',
             description: 'This will move the "user is typing" text to the bottom of the app, like the default discord.',
             url: 'https://goldenlys.github.io/WizardUI/addons/UserIsTyping.css',
-        },
-
-        uniqueChatbar: {
-            name: 'Unique Chatbar',
-            id: 'UniqueChatbar',
-            description: 'This is an addon that makes the chatbar on one line with the button on the right, while keeping the overall design and function of the theme.',
-            url: 'https://goldenlys.github.io/WizardUI/addons/UniqueChatbar.css',
         },
         uniqueGroupsIcons: {
             name: 'Unique Servers Groups Icons',
@@ -886,7 +879,6 @@ $(document).ready(function () {
 
         config += `\n:root {`
         config += `\n    /* GENERAL */\n`
-        config += `    --AppName: "${$('#themeName').val()}";\n`
         config += `    --Watermark: "${$('#watermark').val()}";\n`
         config += `    --font: "${GLOBALS.fonts[$('#fontVariable').val()].name}", "emoji", sans-serif;\n`
 
