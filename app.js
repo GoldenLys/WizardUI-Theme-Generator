@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.7',
+    VERSION: '1.8',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -44,6 +44,12 @@ const GLOBALS = {
             id: 'UniqueChatbar',
             description: 'This is an addon that makes the chatbar on one line with the button on the right, while keeping the overall design and function of the theme.',
             url: 'https://goldenlys.github.io/WizardUI/addons/UniqueChatbar.css',
+        },
+        uniqueGroupsIcons: {
+            name: 'Unique Servers Groups Icons',
+            id: 'UniqueGroupsIcons',
+            description: 'This is an addon that adds unique emojis/icons for the server groups, full list of icons is available on the discord server.',
+            url: 'https://goldenlys.github.io/WizardUI/addons/UniqueGroupsIcons.css',
         },
     },
     fonts: {
@@ -984,6 +990,9 @@ $(document).ready(function () {
         config += `    --Show_GIF_Button: ${$('#showGIFButton').val()};\n`;
         config += `    --Show_Sticker_Button: ${$('#showStickerButton').val()};\n`;
         config += `    --Show_Apps_Button: ${$('#showAppsButton').val()};\n`;
+        config += `    --Show_Now_Playing_Tab: ${$('#showNowPlayingTab').val()};\n`;
+        config += `    --Show_Category_Visibility_Icon: ${$('#showCategoryVisibilityIcon').val()};\n`;
+
         config += "}\n";
         config += `\n\n/* Theme generated using WizardUI Theme Generator v${GLOBALS.VERSION} */`;       
 
