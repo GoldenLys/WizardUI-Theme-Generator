@@ -422,7 +422,7 @@ function updateFoldersType(type) {
 
 function separateColorAndOpacity(hexColor) {
     hexColor = hexColor.replace('#', '');
-
+    if (hexColor.length < 8) hexColor = hexColor.padEnd(8, 'FF'); 
     // Extract the color code and opacity
     const colorCode = hexColor.slice(0, -2);
     const opacity = hexColor.slice(-2);
