@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.81',
+    VERSION: '1.82',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -320,6 +320,7 @@ var CONFIG = {
 };
 
 function updateFont(font) {
+    if (!GLOBALS.fonts[font]) font = 0;
     $('body').css('font-family', GLOBALS.fonts[font].name);
     $('link[href*="fonts.googleapis.com"]').remove();
     if (GLOBALS.fonts[font]) {
@@ -419,6 +420,26 @@ function updateFoldersType(type) {
     }
 }
 
+function separateColorAndOpacity(hexColor) {
+    // Remove the '#' symbol from the hex color
+    hexColor = hexColor.replace('#', '');
+
+    // Extract the color code and opacity
+    const colorCode = hexColor.slice(0, -2);
+    const opacity = hexColor.slice(-2);
+
+    // Convert the opacity from hex to decimal
+    const opacityDecimal = parseInt(opacity, 16) / 255;
+
+    // Convert the opacity to a percentage
+    const opacityPercent = opacityDecimal * 100;
+
+    return {
+        colorCode: "#" + colorCode,
+        opacity: Math.round(opacityPercent)
+    };
+}
+
 function decimalToHexTransparency(decimalTransparency, hexColor) {
     const hexTransparency = Math.round(decimalTransparency * 255).toString(16).padStart(2, '0');
     return `${hexColor}${hexTransparency}`;
@@ -461,8 +482,10 @@ function importTheme() {
             const cssContent = reader.result;
             const { themeInfo, themeVariables, themeAddons } = extractThemeData(cssContent);
             const processedTheme = processTheme(themeVariables);
-            console.log(themeAddons);
-            //console.log(processedTheme);
+            //console.table(themeAddons);
+            //console.table("Raw: " + JSON.stringify(themeVariables));
+            console.table(processedTheme);
+            INITIALIZE();
             applyTheme(themeInfo, processedTheme, themeAddons);
         };
         reader.readAsText(file);
@@ -470,11 +493,11 @@ function importTheme() {
 }
 
 function extractThemeData(cssContent) {
-    const themeInfo = {};
-    const themeVariables = {};
+    let themeInfo = {};
+    let themeVariables = {};
     let themeAddons = [];
 
-    const lines = cssContent.split('\n');
+    let lines = cssContent.split('\n');
     let inComment = false;
     lines.forEach((line) => {
         if (line.trim().startsWith('/*')) {
@@ -496,13 +519,7 @@ function extractThemeData(cssContent) {
             const evenMoreBackgroundsMatch = url.match(/EvenMoreBackgrounds\/(\d+)\.css$/);
             if (evenMoreBackgroundsMatch) {
                 const amount = parseInt(evenMoreBackgroundsMatch[1], 10);
-                if (!isNaN(amount)) {
-                    themeAddons['EvenMoreBackgrounds'] = amount;
-                } else {
-                    console.error('Invalid amount for EvenMoreBackgrounds addon:', amount);
-                }
-            } else {
-                console.error('No match for EvenMoreBackgrounds addon:', url);
+                if (!isNaN(amount)) themeAddons['EvenMoreBackgrounds'] = amount;
             }
         }
     });
@@ -538,41 +555,59 @@ function processTheme(themeVariables) {
         let value = themeVariables[key];
 
         if (typeof value === 'string') {
+            // String processing
+            //console.log("TYPE 0: " + key + " | " + value);
             value = value.replace(/['"]/g, '');
+        } 
+
+        if (key === '--font') {
+            // Font processing
+            //console.log("TYPE 1: " + key + " | " + value);
+            value = value.replace(/, emoji, monospace/, '');
+            value = value.replace(/, emoji, sans-serif/, '');
+            value = value.replace(/, emoji/, '');
+            if (!value || !Object.values(GLOBALS.fonts).some(font => font.name === value)) value = 'Quicksand';
+        }
+
+        if (value === 'none' || value === 'flex' || key === '--Watermark') {
+            // Toggle processing
+            //console.log("TYPE 2: " + key + " | " + value);
+            processedTheme[key] = value;
+
         }
 
         if (typeof value === 'string' && value.startsWith('url(')) {
+            // URL processing
+            //console.log("TYPE 3: " + key + " | " + value);
             value = value.slice(4, -1);
+
         }
 
-        if (key === '--font') {
-            value = value.replace(/, emoji, sans-serif/, '');
-            value = value.replace(/, emoji, monospace/, '');
-            value = value.replace(/, emoji/, '');
+        if (typeof value === 'string' && value.startsWith('rgb')) {
+            // RGB processing
+            //console.log("TYPE 4: " + key + " | " + value);
+            const rgb = convertRgbToHex(value);
+            processedTheme[key] = [rgb.hex];
+            processedTheme[`${key}`].opacity = rgb.opacity;
+
         }
 
         value = value.replace(/var\(--([^)]+)\)/g, (match, variableName) => {
+            // Variable processing
+            //console.log("TYPE 5: " + key + " | " + value);
             if (themeVariables[`--${variableName}`]) {
                 return themeVariables[`--${variableName}`];
             }
             return match;
         });
-
-        if (typeof value === 'string' && value.startsWith('rgb')) {
-            const rgb = convertRgbToHex(value);
-            processedTheme[key] = [rgb.hex];
-            processedTheme[`${key}`].opacity = rgb.opacity;
-        } else {
-            processedTheme[key] = value;
-        }
+        processedTheme[key] = value;
     });
     return processedTheme;
 }
 
-
 function INIT_BACKGROUND_SELECTOR(element_id) {
     for (const background in GLOBALS.backgrounds) {
-        $('#' + element_id ).append(`<option value="${background}">${GLOBALS.backgrounds[background].name}</option>`);
+        $('#' + element_id).append(`<option value="${background}">${GLOBALS.backgrounds[background].name}</option>`);
     }
 }
 
@@ -596,10 +631,11 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
         '--font': '#fontVariable',
         '--background': '#backgroundCustomUrl',
         '--logo': '#LogoCustomUrl',
+        '--sendmessage-text-lines': '#message-lines-slider',
 
         // Colors
-        '--Text': '#textColor',
         '--Primary': '#primaryColor',
+        '--Text': '#textColor',
         '--text-shadow': '#shadowColor',
         '--MessageHover': ['#messageHoverColor', opacity = '#messagehover-slider'],
         '--Unread': '#unreadColor',
@@ -643,8 +679,9 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
         '--Color9': '#rgb-color-9',
         '--Color10': '#rgb-color-10',
 
+        // EMB
         '--BackgroundTime': '#emb-speed-slider',
-        '--EMB_1': '#EMB_2_CustomUrl', 
+        '--EMB_1': '#EMB_2_CustomUrl',
         '--EMB_2': '#EMB_3_CustomUrl',
         '--EMB_3': '#EMB_4_CustomUrl',
         '--EMB_4': '#EMB_5_CustomUrl',
@@ -672,6 +709,13 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
 
     $('#themeName').val(themeInfo.name);
 
+    if (themeVariables['--Show_Gift_Button'] == 'flex' || themeVariables['--Show_Gift_Button'] == 'none') $('#showGiftButton').val(themeVariables['--Show_Gift_Button']);
+    if (themeVariables['--Show_Sticker_Button'] == 'flex' || themeVariables['--Show_Sticker_Button'] == 'none') $('#showStickerButton').val(themeVariables['--Show_Sticker_Button']);
+    if (themeVariables['--Show_Apps_Button'] == 'flex' || themeVariables['--Show_Apps_Button'] == 'none') $('#showAppsButton').val(themeVariables['--Show_Apps_Button']);
+    if (themeVariables['--Show_Now_Playing_Tab'] == 'flex' || themeVariables['--Show_Now_Playing_Tab'] == 'none') $('#showNowPlayingTab').val(themeVariables['--Show_Now_Playing_Tab']);
+    if (themeVariables['--Show_Category_Visibility_Icon'] == 'flex' || themeVariables['--Show_Category_Visibility_Icon'] == 'none') $('#showCategoryVisibilityIcon').val(themeVariables['--Show_Category_Visibility_Icon']);
+
+
     Object.keys(elementMap).forEach(key => {
         const value = themeVariables[key];
         if (key == '--font') {
@@ -688,17 +732,29 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
             }
             $('#fontVariable').val(id);
             updateFont($('#fontVariable').val());
-        }
-        else if (key == '--ServerSize') {
+        } else if (key == '--ServerSize') {
             $(elementMap[key]).slider('set value', value.replace(/[px]/g, ''));
+        
+        } else if (key == '--sendmessage-text-lines') {
+            $(elementMap[key]).slider('set value', value);
         } else if (key == '--EMB_1' || key == '--EMB_2' || key == '--EMB_3' || key == '--EMB_4' || key == '--EMB_5' || key == '--EMB_6' || key == '--EMB_7' || key == '--EMB_8' || key == '--EMB_9') {
             const embId = parseInt(key.split('_')[1]) + 1;
             updateEMBType(embId, 'custom');
             $(`#EMB_${embId}_CustomUrl`).val(value);
         } else {
+            
+
             if (Array.isArray(elementMap[key])) {
-                $(elementMap[key][0]).val(value[0]);
-                $(elementMap[key][1].opacity).slider('set value', value[1]);
+                if (!Array.isArray(value)) { // one value
+                    // ADD MISSING BACKGROUNDS, gotta convert hex "value" into value + opacity in 100 scale
+                    console.log("DEBUG UA-01:" + elementMap[key][0] + " | " + (value));
+                    $(elementMap[key][0]).val(separateColorAndOpacity(value).colorCode);
+                    $(elementMap[key][1].opacity).slider('set value', separateColorAndOpacity(value).opacity);
+                } else { // two values
+                    console.log("DEBUG UA-02:" + elementMap[key][0] + " | " + (value[0]) + " | " + (value[1]));
+                    $(elementMap[key][0]).val(value[0]);
+                    $(elementMap[key][1].opacity).slider('set value', value[1]);
+                }
             } else {
                 $(elementMap[key]).val(value);
             }
@@ -725,10 +781,7 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
     updateBackground(themeVariables['--background']);
 }
 
-$(document).ready(function () {
-    $('.tabular.menu .item').tab();
-    $('.ui.radio.checkbox').checkbox();
-
+function INITIALIZE() {
     // SLIDERS
     Initialize_Slider('transparent-color-slider1', 0, 1.0, 0.75, 0.05, false, true);
     Initialize_Slider('transparent-color-slider2', 0, 1.0, 0.75, 0.05, false, true);
@@ -751,6 +804,25 @@ $(document).ready(function () {
     Initialize_Slider('bg-alt-message-slider', 0, 1.0, 0.0, 0.05, false, true);
     Initialize_Slider('server-size-slider', 0, 100, 45, 1, true, false, true);
 
+    // BACKGROUNDS
+    INIT_BACKGROUND_SELECTOR('backgroundImage');
+    INIT_BACKGROUND_SELECTOR('EMB_2_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_3_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_4_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_5_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_6_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_7_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_8_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_9_Image');
+    INIT_BACKGROUND_SELECTOR('EMB_10_Image');
+}
+
+$(document).ready(function () {
+    INITIALIZE();
+
+    $('.tabular.menu .item').tab();
+    $('.ui.radio.checkbox').checkbox();
+
     // FONT
     for (const font in GLOBALS.fonts) {
         $('#fontVariable').append(`<option value="${font}">${GLOBALS.fonts[font].name}</option>`);
@@ -765,18 +837,6 @@ $(document).ready(function () {
     for (const addon in GLOBALS.addons) {
         $('#desc-' + GLOBALS.addons[addon].id).html(GLOBALS.addons[addon].description);
     }
-
-    // BACKGROUND
-    INIT_BACKGROUND_SELECTOR('backgroundImage');
-    INIT_BACKGROUND_SELECTOR('EMB_2_Image');
-    INIT_BACKGROUND_SELECTOR('EMB_3_Image');
-    INIT_BACKGROUND_SELECTOR('EMB_4_Image');
-    INIT_BACKGROUND_SELECTOR('EMB_5_Image');
-    INIT_BACKGROUND_SELECTOR('EMB_6_Image');
-    INIT_BACKGROUND_SELECTOR('EMB_7_Image');
-    INIT_BACKGROUND_SELECTOR('EMB_8_Image');
-    INIT_BACKGROUND_SELECTOR('EMB_9_Image');
-    INIT_BACKGROUND_SELECTOR('EMB_10_Image');
 
     $('#backgroundType').on('click', ".ui.button", function () {
         updateBackgroundType($(this).data('value'));
@@ -921,6 +981,7 @@ $(document).ready(function () {
         config += `    --bg-ui: ${decimalToHexTransparency($('#bg-ui-slider').slider('get value'), $('#bg-ui').val())};\n`
         config += `    --bg-ui-elements: ${decimalToHexTransparency($('#bg-ui-elements-slider').slider('get value'), $('#bg-ui-elements').val())};\n`
         config += `    --bg-chatbox: ${decimalToHexTransparency($('#bg-chatbox-slider').slider('get value'), $('#bg-chatbox').val())};\n`
+
         config += `    --bg-sendmessage: ${decimalToHexTransparency($('#bg-sendmessage-slider').slider('get value'), $('#bg-sendmessage').val())};\n`
         config += `    --bg-members: ${decimalToHexTransparency($('#bg-members-slider').slider('get value'), $('#bg-members').val())};\n`
         config += `    --bg-chat-elements: ${decimalToHexTransparency($('#bg-chat-elements-slider').slider('get value'), $('#bg-chat-elements').val())};\n`
@@ -954,11 +1015,11 @@ $(document).ready(function () {
 
         for (var i = 2; i <= 10; i++) {
             if (CONFIG[`EMB_${i}_type`] === 'color') {
-                config += `    --EMB_${i-1}: ${$('#EMB_' + i + '_Color').val()};\n`;
+                config += `    --EMB_${i - 1}: ${$('#EMB_' + i + '_Color').val()};\n`;
             } else if (CONFIG[`EMB_${i}_type`] === 'custom') {
-                config += `    --EMB_${i-1}: url("${$('#EMB_' + i + '_CustomUrl').val()}");\n`;
+                config += `    --EMB_${i - 1}: url("${$('#EMB_' + i + '_CustomUrl').val()}");\n`;
             } else {
-                config += `    --EMB_${i-1}: url("${GLOBALS.backgrounds[$('#EMB_' + i + '_Image').val()].url}");\n`;
+                config += `    --EMB_${i - 1}: url("${GLOBALS.backgrounds[$('#EMB_' + i + '_Image').val()].url}");\n`;
             }
         }
 
@@ -986,7 +1047,7 @@ $(document).ready(function () {
         config += `    --Show_Category_Visibility_Icon: ${$('#showCategoryVisibilityIcon').val()};\n`;
 
         config += "}\n";
-        config += `\n\n/* Theme generated using WizardUI Theme Generator v${GLOBALS.VERSION} */`;       
+        config += `\n\n/* Theme generated using WizardUI Theme Generator v${GLOBALS.VERSION} */`;
 
         $('#output').html(`<pre>${config}</pre>`);
         $('#download').removeClass('disabled');
