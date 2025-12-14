@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.82',
+    VERSION: '1.83',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -421,7 +421,6 @@ function updateFoldersType(type) {
 }
 
 function separateColorAndOpacity(hexColor) {
-    // Remove the '#' symbol from the hex color
     hexColor = hexColor.replace('#', '');
 
     // Extract the color code and opacity
@@ -429,14 +428,11 @@ function separateColorAndOpacity(hexColor) {
     const opacity = hexColor.slice(-2);
 
     // Convert the opacity from hex to decimal
-    const opacityDecimal = parseInt(opacity, 16) / 255;
-
-    // Convert the opacity to a percentage
-    const opacityPercent = opacityDecimal * 100;
+    const opacityDecimal = (parseInt(opacity, 16) / 255) * 100;
 
     return {
         colorCode: "#" + colorCode,
-        opacity: Math.round(opacityPercent)
+        opacity: Math.round(opacityDecimal)/100
     };
 }
 
@@ -637,7 +633,7 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
         '--Primary': '#primaryColor',
         '--Text': '#textColor',
         '--text-shadow': '#shadowColor',
-        '--MessageHover': ['#messageHoverColor', opacity = '#messagehover-slider'],
+        '--MessageHover': ['#messageHoverColor', '#messagehover-slider'],
         '--Unread': '#unreadColor',
 
         // Status
@@ -648,24 +644,24 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
         '--Streaming': '#StreamingColor',
 
         // UI
-        '--grey5': ['#greyColor', opacity = '#transparent-color-slider1'],
-        '--darkgrey5': ['#darkgreyColor', opacity = '#transparent-color-slider2'],
+        '--grey5': ['#greyColor', '#transparent-color-slider1'],
+        '--darkgrey5': ['#darkgreyColor', '#transparent-color-slider2'],
         '--ui-success': '#successColor',
         '--ui-warning': '#warningColor',
         '--ui-error': '#errorColor',
-        '--Hover': ['#HoverColor', opacity = '#hover-slider'],
+        '--Hover': ['#HoverColor', '#hover-slider'],
 
         // Backgrounds
-        '--bg-titlebar': ['#bg-titlebar', opacity = '#bg-titlebar-slider'],
-        '--bg-servers': ['#bg-servers', opacity = '#bg-servers-slider'],
-        '--bg-sendmessage': ['#bg-sendmessage', opacity = '#bg-sendmessage-slider'],
-        '--bg-ui-elements': ['#bg-ui-elements', opacity = '#bg-ui-elements-slider'],
-        '--bg-members': ['#bg-members', opacity = '#bg-members-slider'],
-        '--bg-chat-elements': ['#bg-chat-elements', opacity = '#bg-chat-elements-slider'],
-        '--bg-user-area': ['#bg-user-area', opacity = '#bg-user-area-slider'],
-        '--bg-settings': ['#bg-settings', opacity = '#bg-settings-slider'],
-        '--bg-colorprofile': ['#bg-colorprofile', opacity = '#bg-colorprofile-slider'],
-        '--bg-alt-message': ['#bg-alt-message', opacity = '#bg-alt-message-slider'],
+        '--bg-titlebar': ['#bg-titlebar', '#bg-titlebar-slider'],
+        '--bg-servers': ['#bg-servers', '#bg-servers-slider'],
+        '--bg-sendmessage': ['#bg-sendmessage', '#bg-sendmessage-slider'],
+        '--bg-ui-elements': ['#bg-ui-elements', '#bg-ui-elements-slider'],
+        '--bg-members': ['#bg-members', '#bg-members-slider'],
+        '--bg-chat-elements': ['#bg-chat-elements', '#bg-chat-elements-slider'],
+        '--bg-user-area': ['#bg-user-area', '#bg-user-area-slider'],
+        '--bg-settings': ['#bg-settings', '#bg-settings-slider'],
+        '--bg-colorprofile': ['#bg-colorprofile', '#bg-colorprofile-slider'],
+        '--bg-alt-message': ['#bg-alt-message', '#bg-alt-message-slider'],
 
         // RGB
         '--ColorTime': '#rgb-speed-slider',
@@ -746,14 +742,11 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
 
             if (Array.isArray(elementMap[key])) {
                 if (!Array.isArray(value)) { // one value
-                    // ADD MISSING BACKGROUNDS, gotta convert hex "value" into value + opacity in 100 scale
-                    console.log("DEBUG UA-01:" + elementMap[key][0] + " | " + (value));
                     $(elementMap[key][0]).val(separateColorAndOpacity(value).colorCode);
-                    $(elementMap[key][1].opacity).slider('set value', separateColorAndOpacity(value).opacity);
+                    $(elementMap[key][1]).slider('set value', separateColorAndOpacity(value).opacity);
                 } else { // two values
-                    console.log("DEBUG UA-02:" + elementMap[key][0] + " | " + (value[0]) + " | " + (value[1]));
                     $(elementMap[key][0]).val(value[0]);
-                    $(elementMap[key][1].opacity).slider('set value', value[1]);
+                    $(elementMap[key][1]).slider('set value', value[1]);
                 }
             } else {
                 $(elementMap[key]).val(value);
