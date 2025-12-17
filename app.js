@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.83',
+    VERSION: '1.84',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -306,6 +306,7 @@ const GLOBALS = {
 var CONFIG = {
     background_type: 'image',
     logo_type: 'image',
+    link_color_type: 'default',
     pill_color_type: 'default',
     folders_color_type: 'default',
     EMB_2_type: 'image',
@@ -389,6 +390,20 @@ function updateLogo(logo) {
         $('#logo').attr('src', GLOBALS.logos[logo].url);
     } else {
         $('#logo').attr('src', $('#LogoCustomUrl').val());
+    }
+}
+
+function updateLinkType(type) {
+    CONFIG.link_color_type = type;
+    let TYPES = { default: "Link-Default-Color", custom: "Link-Custom-Color" };
+    for (const type in TYPES) {
+        if (type === CONFIG.link_color_type) {
+            $(`#linkColorType .ui.button[data-value="${type}"]`).attr("class", "ui green button");
+            $(`#${TYPES[type]}`).show();
+        } else {
+            $(`#linkColorType .ui.button[data-value="${type}"]`).attr("class", "ui grey button");
+            $(`#${TYPES[type]}`).hide();
+        }
     }
 }
 
@@ -632,6 +647,7 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
         // Colors
         '--Primary': '#primaryColor',
         '--Text': '#textColor',
+        '--text-link': '#textLinkColor',
         '--text-shadow': '#shadowColor',
         '--MessageHover': ['#messageHoverColor', '#messagehover-slider'],
         '--Unread': '#unreadColor',
@@ -901,6 +917,11 @@ $(document).ready(function () {
     });
     updatePillType(CONFIG.pill_color_type);
 
+    $('#linkColorType').on('click', ".ui.button", function () {
+        updateLinkType($(this).data('value'));
+    });
+    updateLinkType(CONFIG.link_color_type);
+
     $('#serversColorType').on('click', ".ui.button", function () {
         updateFoldersType($(this).data('value'));
     });
@@ -946,6 +967,11 @@ $(document).ready(function () {
         config += `\n    /* COLORS */\n`
         config += `    --Primary: ${$('#primaryColor').val()};\n`
         config += `    --Text: ${$('#textColor').val()};\n`
+        if (CONFIG.link_color_type === 'custom') {
+            config += `    --text-link: ${$('#Link-Custom-Color').val()};\n`;
+        } else {
+            config += `    --text-link: var(--Primary);\n`;
+        }
         config += `    --text-shadow: ${$('#shadowColor').val()};\n`
         config += `    --Highlighted:  ${decimalToHexTransparency(0.5, $('#primaryColor').val())};\n`
         config += `    --MessageHover: ${decimalToHexTransparency($('#messagehover-slider').slider('get value'), $('#messageHoverColor').val())};\n`
