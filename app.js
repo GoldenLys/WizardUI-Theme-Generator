@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.84',
+    VERSION: '1.9',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -44,6 +44,12 @@ const GLOBALS = {
             description: 'This is an addon that adds unique emojis/icons for the server groups, full list of icons is available on the discord server.',
             url: 'https://goldenlys.github.io/WizardUI/addons/UniqueGroupsIcons.css',
         },
+        removeRoleGradient: {
+            name: 'Remove Role Gradients',
+            id: 'RemoveRoleGradient',
+            description: 'This is an addon that removes the gradients from the role colors.',
+            url: 'https://goldenlys.github.io/WizardUI/addons/NoRoleGradient.css',
+        }
     },
     fonts: {
         quicksand: {
