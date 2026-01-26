@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.9',
+    VERSION: '1.91',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -49,6 +49,18 @@ const GLOBALS = {
             id: 'RemoveRoleGradient',
             description: 'This is an addon that removes the gradients from the role colors.',
             url: 'https://goldenlys.github.io/WizardUI/addons/NoRoleGradient.css',
+        },
+        removeUserFont: {
+            name: 'Remove User Fonts',
+            id: 'RemoveUserFont',
+            description: 'This is an addon that removes the custom font from usernames.',
+            url: 'https://goldenlys.github.io/WizardUI/addons/NoRoleFont.css',
+        },
+        removeUserNameplate: {
+            name: 'remove User Nameplates',
+            id: 'RemoveUserNameplate',
+            description: 'This is an addon that removes the custom nameplates in the members list.',
+            url: 'https://goldenlys.github.io/WizardUI/addons/NoNameplates.css',
         }
     },
     fonts: {
