@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.92',
+    VERSION: '1.93',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -791,6 +791,7 @@ function applyTheme(themeInfo, themeVariables, themeAddons) {
     if (themeVariables['--Show_Apps_Button'] == 'flex' || themeVariables['--Show_Apps_Button'] == 'none') $('#showAppsButton').val(themeVariables['--Show_Apps_Button']);
     if (themeVariables['--Show_Now_Playing_Tab'] == 'flex' || themeVariables['--Show_Now_Playing_Tab'] == 'none') $('#showNowPlayingTab').val(themeVariables['--Show_Now_Playing_Tab']);
     if (themeVariables['--Show_Category_Visibility_Icon'] == 'flex' || themeVariables['--Show_Category_Visibility_Icon'] == 'none') $('#showCategoryVisibilityIcon').val(themeVariables['--Show_Category_Visibility_Icon']);
+    if (themeVariables['--Show_Current_Channel_Title'] == 'flex' || themeVariables['--Show_Current_Channel_Title'] == 'none') $('#showCurrentChannelTitle').val(themeVariables['--Show_Current_Channel_Title']);
 
 
     Object.keys(elementMap).forEach(key => {
@@ -1129,6 +1130,7 @@ $(document).ready(function () {
         config += `    --Show_Apps_Button: ${$('#showAppsButton').val()};\n`;
         config += `    --Show_Now_Playing_Tab: ${$('#showNowPlayingTab').val()};\n`;
         config += `    --Show_Category_Visibility_Icon: ${$('#showCategoryVisibilityIcon').val()};\n`;
+        config += `    --Show_Current_Channel_Title: ${$('#showCurrentChannelTitle').val()};\n`;
 
         config += "}\n";
         config += `\n\n/* Theme generated using WizardUI Theme Generator v${GLOBALS.VERSION} */`;
