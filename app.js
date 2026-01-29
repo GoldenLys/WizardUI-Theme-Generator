@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.91',
+    VERSION: '1.92',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -87,6 +87,11 @@ const GLOBALS = {
         sourseSansPro: {
             name: 'Source Sans Pro',
             url: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@100;200;300;400;500;600;700;800;900&display=swap',
+        },
+
+        nunito: {
+            name: 'Nunito Sans',
+            url: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap',
         },
 
         marianne: {
@@ -203,6 +208,36 @@ const GLOBALS = {
         gta6: {
             name: 'GTA VI',
             url: 'https://goldenlys.github.io/WizardUI/images/backgrounds/gta6.jpg',
+        },
+
+        Eclipse: {
+            name: 'Star Wars: Eclipse',
+            url: 'https://goldenlys.github.io/WizardUI/images/backgrounds/Eclipse.jpg',
+        },
+
+        SWBattle: {
+            name: 'Star Wars: Battle of Hoth',
+            url: 'https://goldenlys.github.io/WizardUI/images/backgrounds/SWBattle.jpg',
+        },
+
+        SWDestroyer: {
+            name: 'Star Wars: Destroyer',
+            url: 'https://goldenlys.github.io/WizardUI/images/backgrounds/SWDestroyer.jpg',
+        },
+
+        SWFalcon: {
+            name: 'Star Wars: Millenium Falcon',
+            url: 'https://goldenlys.github.io/WizardUI/images/backgrounds/SWFalcon.jpg',
+        },
+
+        SWEmpire: {
+            name: 'Star Wars: Empire',
+            url: 'https://goldenlys.github.io/WizardUI/images/backgrounds/SWEmpire.jpg',
+        },
+
+        hytale: {
+            name: 'Hytale',
+            url: 'https://goldenlys.github.io/WizardUI/images/backgrounds/hytale.jpg',
         }
     },
     logos: {
@@ -317,6 +352,18 @@ const GLOBALS = {
         28: {
             name: 'GTA VI',
             url: 'https://goldenlys.github.io/WizardUI/images/logos/28.png',
+        },
+        29: {
+            name: 'GTA VI: Oficial Black Icon',
+            url: 'https://goldenlys.github.io/WizardUI/images/logos/29.png',
+        },
+        30: {
+            name: 'Star Wars: Eclipse',
+            url: 'https://goldenlys.github.io/WizardUI/images/logos/30.png',
+        },
+        31: {
+            name: 'Hytale',
+            url: 'https://goldenlys.github.io/WizardUI/images/logos/31.png',
         },
     }
 };
