@@ -1,5 +1,5 @@
 const GLOBALS = {
-    VERSION: '1.93',
+    VERSION: '1.94',
     labels: ['0%', '5%', '10%', '15%', '20%', '25%', '30%', '35%', '40%', '45%', '50%', '55%', '60%', '65%', '70%', '75%', '80%', '85%', '90%', '95%', '100%'],
     addons: {
         purpleServerList: {
@@ -12,7 +12,7 @@ const GLOBALS = {
         lettersInPSL: {
             name: 'Letters in PSL',
             id: 'LettersInPSL',
-            description: 'This is a modification for PurpleServerList which replaces the folders icons with letters.',
+            description: 'Modification for PurpleServerList which replaces the folders icons with letters.',
             required: ["PurpleServerList"],
             url: 'https://goldenlys.github.io/WizardUI/addons/LettersInPSL.css',
         },
@@ -20,7 +20,7 @@ const GLOBALS = {
         alternateFoldersInPSL: {
             name: 'Alternate Folders in PSL',
             id: 'AlternateFoldersInPSL',
-            description: 'This addon modifies the view of closed folders in PurpleServerList, to make it show the 4 servers inside a folder in a 2x2 grid, this is also compatible with the Letters In PSL addon.',
+            description: 'Modifies the view of closed folders in PurpleServerList, to make it show the 4 servers inside a folder in a 2x2 grid, this is also compatible with the Letters In PSL addon.',
             required: ["PurpleServerList"],
             url: 'https://goldenlys.github.io/WizardUI/addons/AlternateFoldersInPSL.css',
         },
@@ -28,39 +28,45 @@ const GLOBALS = {
         hoverMembers: {
             name: 'Hover Members',
             id: 'HoverMembers',
-            description: ' This will make the members list stay hidden until you hover it.',
+            description: 'Makes the members list stay hidden until you hover it.',
             url: 'https://goldenlys.github.io/WizardUI/addons/HoverMembers.css',
         },
 
         userIsTyping: {
             name: 'User is Typing',
             id: 'UserIsTyping',
-            description: 'This will move the "user is typing" text to the bottom of the app, like the default discord.',
+            description: 'Moves the "user is typing" text to the bottom of the app, like the default discord.',
             url: 'https://goldenlys.github.io/WizardUI/addons/UserIsTyping.css',
         },
         uniqueGroupsIcons: {
             name: 'Unique Servers Groups Icons',
             id: 'UniqueGroupsIcons',
-            description: 'This is an addon that adds unique emojis/icons for the server groups, full list of icons is available on the discord server.',
+            description: 'Add some unique emojis/icons for the server groups, full list of icons is available on the discord server.',
             url: 'https://goldenlys.github.io/WizardUI/addons/UniqueGroupsIcons.css',
         },
         removeRoleGradient: {
-            name: 'Remove Role Gradients',
+            name: 'Remove Customized Role Gradients',
             id: 'RemoveRoleGradient',
-            description: 'This is an addon that removes the gradients from the role colors.',
+            description: 'Removes the gradients from the role colors.',
             url: 'https://goldenlys.github.io/WizardUI/addons/NoRoleGradient.css',
         },
         removeUserFont: {
-            name: 'Remove User Fonts',
+            name: 'Remove Customized User Fonts',
             id: 'RemoveUserFont',
-            description: 'This is an addon that removes the custom font from usernames.',
+            description: 'Removes the custom font from usernames.',
             url: 'https://goldenlys.github.io/WizardUI/addons/NoRoleFont.css',
         },
         removeUserNameplate: {
-            name: 'remove User Nameplates',
+            name: 'Remove Customized User Nameplates',
             id: 'RemoveUserNameplate',
-            description: 'This is an addon that removes the custom nameplates in the members list.',
+            description: 'Removes the custom nameplates in the members list.',
             url: 'https://goldenlys.github.io/WizardUI/addons/NoNameplates.css',
+        },
+        vitrum: {
+            name: 'Vitrum',
+            id: 'Vitrum',
+            description: 'Add a blur/glassy effect to the app.',
+            url: 'https://goldenlys.github.io/WizardUI/addons/Vitrum.css',
         }
     },
     fonts: {
@@ -238,6 +244,10 @@ const GLOBALS = {
         hytale: {
             name: 'Hytale',
             url: 'https://goldenlys.github.io/WizardUI/images/backgrounds/hytale.jpg',
+        },
+        carina: {
+            name: 'Carina Nebula',
+            url: 'https://goldenlys.github.io/WizardUI/images/backgrounds/spacecarina.webp',
         }
     },
     logos: {
@@ -364,6 +374,10 @@ const GLOBALS = {
         31: {
             name: 'Hytale',
             url: 'https://goldenlys.github.io/WizardUI/images/logos/31.png',
+        },
+        31: {
+            name: 'Orange/Blue Discord',
+            url: 'https://goldenlys.github.io/WizardUI/images/logos/32.png',
         },
     }
 };
